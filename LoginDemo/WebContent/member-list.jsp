@@ -4,7 +4,7 @@
 <html>
 <head>
 <title>會員</title>
-<link rel="stylesheet"
+ <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
@@ -13,15 +13,15 @@
 
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark"
-			style="background-color: blue">
-			<div>
+			style="background-color:rgb(189, 137, 137)">
+		<%-- 	<div>
 				<a href="https://www.xadmin.net" class="navbar-brand"> User
 					Management Application </a>
-			</div>
+			</div>--%>
 
 			<ul class="navbar-nav">
 				<li><a href="<%=request.getContextPath()%>/list"
-					class="nav-link">Users</a></li>
+					class="nav-link">會員</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -31,25 +31,24 @@
 		<!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
 
 		<div class="container">
-			<h3 class="text-center">List of Users</h3>
+			<h3 class="text-center">會員</h3>
 			<hr>
 			<div class="container text-left">
 
-				<a href="<%=request.getContextPath()%>/new" class="btn btn-success">Add
-					New User</a>
+			<%-- 	<a href="<%=request.getContextPath()%>/new" class="btn btn-success">增</a> --%>
 			</div>
 			<br>
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th>mobile</th>
-						<th>password</th>
-						<th>name</th>
-						<th>nickname</th>
-						<th>gender</th>
-						<th>birthday</th>
+						<th>手機</th>
+						<th>密碼</th>
+						<th>姓名</th>
+						<th>別名</th>
+						<th>性別</th>
+						<th>生日</th>
 						<th>email</th>
-						<th>address</th>
+						<th>地址</th>
 						
 					</tr>
 				</thead>
@@ -68,9 +67,9 @@
 							<td><c:out value="${member.address}" /></td>
 							
 							
-							<td><a href="edit?mobile=<c:out value='${member.mobile}' />">Edit</a>
+							<td><a href="edit?mobile=<c:out value='${member.mobile}' />">改</a>
 								&nbsp;&nbsp;&nbsp;&nbsp; <a
-								href="delete?mobile=<c:out value='${member.mobile}' />">Delete</a></td>
+								href="delete?mobile=<c:out value='${member.mobile}' />">刪</a></td>
 						</tr>
 					</c:forEach>
 		

@@ -44,6 +44,11 @@ public class MemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");  //setup response character encoding type
+		response.setContentType("text/html");   //setup response content type
+		response.setCharacterEncoding("UTF-8");	
+		
 		String action=request.getServletPath();
 		switch(action)
 		{
@@ -65,6 +70,7 @@ public class MemberServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
 			break;
 		case "/delete":
 			try {
@@ -140,7 +146,10 @@ public class MemberServlet extends HttpServlet {
 			String address = request.getParameter("address");
 			Member newMember = new Member(mobile,password,name,nickname,gender,birthday,email,address);
 			memberDao.insertMember(newMember);
-			response.sendRedirect("list");
+			//response.sendRedirect("list");
+			
+			request.setAttribute("smessage","註冊成功,請登入" );
+			response.sendRedirect("login.jsp");
 		}
 		
 		private void deleteMember(HttpServletRequest request, HttpServletResponse response) 
@@ -161,7 +170,8 @@ public class MemberServlet extends HttpServlet {
 			Member existingMember ;
 			try {
 				existingMember = memberDao.selectMember(mobile);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("member-form.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("member-forme.jsp");
+			
 			request.setAttribute("member", existingMember);
 			dispatcher.forward(request, response);
 			} catch (Exception e) {
@@ -210,5 +220,6 @@ public class MemberServlet extends HttpServlet {
 	}
 
 	
+
 
 

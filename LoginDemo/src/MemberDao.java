@@ -1,4 +1,4 @@
-
+             
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,7 +25,7 @@ public class MemberDao {
 	private static final String SELECT_USER_BY_ID = "select * from member where mobile =?";
 	private static final String SELECT_ALL_USERS = "select * from member";
 	private static final String DELETE_USERS_SQL = "delete from member where mobile = ?";
-	private static final String UPDATE_USERS_SQL = "update member set password=?,name=?,nickname=?,gender=?,birthday=?,email=?,address=? where mobile = ?";
+	private static final String UPDATE_USERS_SQL = "update member set password=?,name=?,nickname=?,gender=?,email=?,address=? where mobile = ?";
 	public MemberDao() {
 		
 		
@@ -58,9 +58,9 @@ public class MemberDao {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = sdf.parse(member.getBirthday());
 			pstmt.setDate(6, new java.sql.Date(date.getTime()));
+			System.out.println(date);
 			pstmt.setString(7, member.getEmail());
 			pstmt.setString(8, member.getAddress());
-	
 			System.out.println(pstmt);	
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -68,6 +68,7 @@ public class MemberDao {
 		}
 	}
 	public Member selectMember(String mobile) {
+		
 		Member member = null;
 		// Step 1: Establishing a Connection
 		try (Connection connection = getConnection();
@@ -86,7 +87,11 @@ public class MemberDao {
 				String name = rs.getString("name");
 				String nickname = rs.getString("nickname");
 				String gender = rs.getString("gender");
-				String birthday = rs.getString("birthday");
+				
+// 				String birthday = rs.getString("birthday");
+				Date birDate = rs.getDate("birthday");
+				String birthday = Integer.toString(birDate.getYear()+1900)+"-"+Integer.toString(birDate.getMonth()+1)+"-"+Integer.toString(birDate.getDate());
+
 				String email = rs.getString("email");
 				String address = rs.getString("address");
 				
@@ -95,6 +100,7 @@ public class MemberDao {
 		} catch (SQLException e) {
 			printSQLException(e);
 		}
+		System.out.println("select");
 		return member;
 	}
 
@@ -120,7 +126,8 @@ public class MemberDao {
 					String name = rs.getString("name");
 					String nickname = rs.getString("nickname");
 					String gender = rs.getString("gender");
-					String birthday = rs.getString("birthday");
+					Date birDate = rs.getDate("birthday");
+					String birthday = Integer.toString(birDate.getYear()+1900)+"-"+Integer.toString(birDate.getMonth()+1)+"-"+Integer.toString(birDate.getDate());
 					String email = rs.getString("email");
 					String address = rs.getString("address");
 					members.add(new Member(mobile,password,name,nickname,gender,birthday,email,address));
@@ -131,24 +138,40 @@ public class MemberDao {
 			return members;
 	}
 	public boolean updateMember(Member member) throws SQLException, ParseException {
+
 		boolean rowUpdated;
 		try (Connection con = getConnection();
 				PreparedStatement pstmt = con.prepareStatement(UPDATE_USERS_SQL);) {
 			
-			pstmt.setString(1, member.getMobile());
-			pstmt.setString(2, member.getPassword());
-			pstmt.setString(3, member.getName());
-			pstmt.setString(4, member.getNickname());
-			pstmt.setString(5, member.getGender());
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			Date date = sdf.parse(member.getBirthday());
-			pstmt.setDate(6, new java.sql.Date(date.getTime()));
-			pstmt.setString(7, member.getEmail());
-			pstmt.setString(8, member.getAddress());
+//			pstmt.setString(1, member.getMobile());
+//			pstmt.setString(2, member.getPassword());
+//			pstmt.setString(3, member.getName());
+//			pstmt.setString(4, member.getNickname());
+//			pstmt.setString(5, member.getGender());
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//			Date date = sdf.parse(member.getBirthday());
+//			pstmt.setDate(6, new java.sql.Date(date.getTime()));
+//			pstmt.setString(7, member.getEmail());
+//			pstmt.setString(8, member.getAddress());
+
+			pstmt.setString(1, member.getPassword());
+			pstmt.setString(2, member.getName());
+			pstmt.setString(3, member.getNickname());
+			pstmt.setString(4, member.getGender());
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//			
+//			Date date = sdf.parse(member.getBirthday());
+//			pstmt.setDate(5, new java.sql.Date(date.getTime()));
+			
+			pstmt.setString(5, member.getEmail());
+			pstmt.setString(6, member.getAddress());
+			pstmt.setString(7, member.getMobile());
+			System.out.println(member.getMobile());
 			
 			rowUpdated = pstmt.executeUpdate() > 0;
 			
 		}
+		System.out.println("123456");
 		return rowUpdated;
 		
 	}
@@ -180,50 +203,6 @@ public class MemberDao {
 		}
 	}
 
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	 
 
 }
- 

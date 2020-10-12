@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
 		LoginDao loginDao=new LoginDao();
 		if(loginDao.validate(loginBean))
 		{
-			response.sendRedirect("loginSuccess.jsp");
+			response.sendRedirect("list");
 		}
 		else {			
 			request.setAttribute("message","帳號密碼有誤 請重新輸入" );
